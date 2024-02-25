@@ -4,45 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #f8f9fa;
+            color: #343a40;
             margin: 20px;
+            text-align: center;
         }
 
-        h1, h2 {
-            color: #2c3e50;
+        h1 {
+            color: #007bff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
 
         section {
-            background-color: #ecf0f1;
-            padding: 20px;
-            margin-bottom: 20px;
+            background-color: #ffffff;
             border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #bdc3c7;
-            padding: 8px;
+            border: 1px solid #dee2e6;
+            padding: 10px;
             text-align: left;
         }
 
         th {
-            background-color: #3498db;
+            background-color: #007bff;
             color: white;
         }
 
         a {
-            color: #3498db;
+            color: #007bff;
             text-decoration: none;
             font-weight: bold;
         }
@@ -53,7 +56,7 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to the Library Management System</h1>
+    <h1>Explore the Library Management System</h1>
 
     <section>
         <h2>Book List</h2>
@@ -84,7 +87,7 @@
     <section>
         <h2>About the Project</h2>
         <p>
-            Our Library Management System allows you to efficiently manage and organize your library's collection of books. You can easily add new books, view existing ones, and keep track of authors.
+            Welcome to our creatively designed Library Management System. Effortlessly manage and organize your library's collection of books. Easily add new books, explore existing ones, and keep track of authors.
         </p>
         <p>
             To get started, <a href="#">sign in</a> or <a href="#">create an account</a>.
@@ -92,9 +95,5 @@
     </section>
 
     <!-- Add more sections or content as needed -->
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
