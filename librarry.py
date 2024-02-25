@@ -22,7 +22,7 @@ html_code = """
 
         section {
             background-color: #ffffff;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin: 20px 0;
