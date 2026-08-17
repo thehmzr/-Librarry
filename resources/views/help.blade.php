@@ -1,5 +1,4 @@
 <!-- resources/views/help.blade.php -->
-@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +47,8 @@
 
   </style>
 </head>
-@section('content')
+
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Library Management System</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -97,4 +97,6 @@
             </p>
         </div>
     </div>
-@endsection
+</body>
+
+</html>
