@@ -8,37 +8,55 @@ Built as a university web programming project.
 
 ![Dashboard](docs/images/dashboard.jpg)
 
-## Setup
+## Run it
 
-Requires PHP 8.0.2+, Composer and MySQL.
+Needs PHP 8.0.2+ and Composer. On macOS:
+
+```bash
+brew install php@8.2 composer
+```
+
+Then one command does the rest — dependencies, database, sample books and the
+server:
 
 ```bash
 git clone https://github.com/thehmzr/-Librarry.git && cd -Librarry
-composer install
-cp .env.example .env
-php artisan key:generate
+./run.sh
 ```
 
-Create the database and point `.env` at it:
+Open http://127.0.0.1:8000. Press Ctrl+C to stop.
+
+It uses SQLite, so there is no database server to install or start. The script
+is safe to re-run: it only does the steps that are still needed, and it will not
+overwrite books you have added.
+
+```bash
+./run.sh --port 8080   # serve on a different port
+./run.sh --fresh       # rebuild the database from scratch
+./run.sh --setup       # set up without starting the server
+```
+
+### Using MySQL instead
+
+The project was originally written against MySQL. To use it, create the
+database:
 
 ```sql
 CREATE DATABASE librarydb;
 ```
 
+Point `.env` at it:
+
 ```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
 DB_DATABASE=librarydb
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Then migrate and serve:
-
-```bash
-php artisan migrate
-php artisan serve
-```
-
-The app runs at http://127.0.0.1:8000.
+Then `php artisan migrate` and `php artisan serve`.
 
 ## Pages
 
@@ -113,8 +131,10 @@ One table, `books`, created by
 | `resources/views/help.blade.php`         | Help page                           |
 | `resources/views/layouts/app.blade.php`  | Shared layout                       |
 | `database/migrations/`                   | Schema migrations                   |
+| `database/seeders/BookSeeder.php`        | Sample books for a fresh install    |
 | `public/`                                | Front controller and images         |
 | `config/`                                | Laravel configuration               |
+| `run.sh`                                 | One-command setup and server        |
 
 Styling is Bootstrap over CDN, written inline in each view. There is no build
 step for the front end — the Vite setup is Laravel's default and unused.
