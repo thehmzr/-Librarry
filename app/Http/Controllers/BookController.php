@@ -19,43 +19,34 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        $book = new Book();
-        $book->title = $request->input('title');
-        $book->author = $request->input('author');
-        $book->rating = $request->input('rating');
-        $book->publish = $request->input('publish');
-        $book->save();
+        Book::create($this->validateBook($request));
 
         return redirect('/books')->with('success', 'Book created successfully!');
     }
 
     public function show($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('books.show', compact('book'));
     }
 
     public function edit($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('books.edit', compact('book'));
     }
 
     public function update(Request $request, $id)
     {
-        $book = Book::find($id);
-        $book->title = $request->input('title');
-        $book->author = $request->input('author');
-        $book->title = $request->input('rating');
-        $book->author = $request->input('publish');
-        $book->save();
+        $book = Book::findOrFail($id);
+        $book->update($this->validateBook($request));
 
         return redirect('/books')->with('success', 'Book updated successfully!');
     }
 
     public function destroy($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         $book->delete();
 
         return redirect('/books')->with('success', 'Book deleted successfully!');
@@ -65,6 +56,15 @@ class BookController extends Controller
     {
         return view('books.home');
     }
-   
+
+    private function validateBook(Request $request)
+    {
+        return $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'rating' => 'required|numeric|min:0|max:5',
+            'publish' => 'required|string|max:255',
+        ]);
+    }
 }
 
