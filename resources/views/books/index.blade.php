@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,7 +124,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-        <a class="nav-link" href="http://127.0.0.1:8000">Dashboard</a>
+        <a class="nav-link" href="{{ url('/') }}">Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="{{ route('books.index') }}">Show/edit Books</a>
@@ -182,4 +179,3 @@
 </body>
 
 </html>
-@endsection

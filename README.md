@@ -129,15 +129,15 @@ One table, `books`, created by
 | `resources/views/books/home.blade.php`   | Dashboard                           |
 | `resources/views/about.blade.php`        | About page                          |
 | `resources/views/help.blade.php`         | Help page                           |
-| `resources/views/layouts/app.blade.php`  | Shared layout                       |
 | `database/migrations/`                   | Schema migrations                   |
 | `database/seeders/BookSeeder.php`        | Sample books for a fresh install    |
 | `public/`                                | Front controller and images         |
 | `config/`                                | Laravel configuration               |
 | `run.sh`                                 | One-command setup and server        |
 
-Styling is Bootstrap over CDN, written inline in each view. There is no build
-step for the front end — the Vite setup is Laravel's default and unused.
+Each view is a standalone page carrying its own markup and styles. Styling is
+Bootstrap over CDN, written inline. There is no build step for the front end —
+the Vite setup is Laravel's default and unused.
 
 ## Notes
 
