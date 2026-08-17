@@ -107,23 +107,32 @@
   <!-- Add book -->
   <div class="container mt-5">
     <h2 class="mb-4">Add Book</h2>
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <form action="{{ route('books.store') }}" method="POST">
       @csrf
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" name="title" required>
+        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>
       </div>
       <div class="form-group">
         <label for="author">Author</label>
-        <input type="text" class="form-control" id="author" name="author" required>
+        <input type="text" class="form-control" id="author" name="author" value="{{ old('author') }}" required>
       </div>
       <div class="form-group">
         <label for="rating">Rating</label>
-        <input type="text" class="form-control" id="rating" name="rating" required>
+        <input type="number" step="0.1" min="0" max="5" class="form-control" id="rating" name="rating" value="{{ old('rating') }}" required>
       </div>
       <div class="form-group">
         <label for="publish">Publisher</label>
-        <input type="text" class="form-control" id="publish" name="publish" required>
+        <input type="text" class="form-control" id="publish" name="publish" value="{{ old('publish') }}" required>
       </div>
       <button type="submit" class="btn btn-primary">Add</button>
     </form>

@@ -104,24 +104,33 @@
 
     <div class="container">
         <h2>Edit Book</h2>
-        <form action="/books/{{ $book->id }}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('books.update', $book->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ $book->title }}" required>
+                <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $book->title) }}" required>
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
-                <input type="text" class="form-control" id="author" name="author" value="{{ $book->author }}" required>
+                <input type="text" class="form-control" id="author" name="author" value="{{ old('author', $book->author) }}" required>
             </div>
             <div class="form-group">
                 <label for="rating">Rating</label>
-                <input type="text" class="form-control" id="rating" name="rating" value="{{ $book->rating }}" required>
+                <input type="number" step="0.1" min="0" max="5" class="form-control" id="rating" name="rating" value="{{ old('rating', $book->rating) }}" required>
             </div>
             <div class="form-group">
                 <label for="publish">Publisher</label>
-                <input type="text" class="form-control" id="publish" name="publish" value="{{ $book->publish }}" required>
+                <input type="text" class="form-control" id="publish" name="publish" value="{{ old('publish', $book->publish) }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
