@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- saved from url=(0112)https://widgets.outbrain.com/nanoWidget/externals/obUserFrame/test.html?lsd=d173ae8a-c16f-44b3-ac63-8ab2c21850c3 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OB User</title>
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1111.0" data-gr-ext-installed="">
+    <script>
+      var getQueryParam = function (key, defaultVal) {
+        key = key.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+
+        var regexS, regex, results;
+        try {
+          regexS = '[\\?&]' + key + '=([^&#]*)';
+          regex = new RegExp(regexS, 'i');
+          results = regex.exec(decodeURIComponent(window.location.href.replace(/\+/g, ' ')));
+          if (results === null) {
+            return defaultVal;
+          }
+          return results[1];
+        } catch (ex) {
+          return defaultVal;
+        }
+      };
+
+      var getLsd = function () {
+        var computedLsd = window.localStorage ? window.localStorage.getItem('OB:LSU') : null;
+        if (window.localStorage && !computedLsd) {
+          computedLsd = getQueryParam('lsd', null);
+          window.localStorage.setItem('OB:LSU', computedLsd);
+        }
+        return computedLsd;
+      };
+
+      var sendLocalUser = function (computedLsd) {
+        if (!computedLsd) return;
+        try {
+          var msgData = {
+            msg: 'OB:LSU',
+            data: computedLsd,
+          };
+          if (window.parent) {
+            window.parent.postMessage(JSON.stringify(msgData), '*');
+          }
+        } catch (e) {
+          window.parent.postMessage(JSON.stringify(msgData), '*');
+        }
+      };
+
+      try {
+        var computedLsd = getLsd();
+        sendLocalUser(computedLsd);
+      } catch (error) {}
+    </script>
+  
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+  div.grammarly-desktop-integration {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+  }
+
+  div.grammarly-desktop-integration:before {
+    content: attr(data-content);
+  }
+</style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
