@@ -4,7 +4,7 @@ A Laravel app for keeping track of a library's books. You can add books, list
 them, view one, edit it and delete it. Each book has a title, author, rating
 and publisher.
 
-I built this for a university web programming course.
+I built this for  university web programming course.
 
 ![Dashboard](docs/images/dashboard.jpg)
 
