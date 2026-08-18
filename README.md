@@ -1,51 +1,50 @@
 # Library Management System
 
-A Laravel web app for cataloguing a library's collection. Add books, browse
-them, edit and delete — each record holding a title, author, rating and
-publisher.
+A Laravel app for keeping track of a library's books. You can add books, list
+them, view one, edit it and delete it. Each book has a title, author, rating
+and publisher.
 
-Built as a university web programming project.
+I built this for a university web programming course.
 
 ![Dashboard](docs/images/dashboard.jpg)
 
-## Run it
+## Running it
 
-Needs PHP 8.0.2+ and Composer. On macOS:
+You need PHP 8.0.2 or newer and Composer. On macOS:
 
 ```bash
 brew install php@8.2 composer
 ```
 
-Then one command does the rest — dependencies, database, sample books and the
-server:
+Then:
 
 ```bash
 git clone https://github.com/thehmzr/-Librarry.git && cd -Librarry
 ./run.sh
 ```
 
-Open http://127.0.0.1:8000. Press Ctrl+C to stop.
+That installs the dependencies, sets up the database, adds a few sample books
+and starts the server on http://127.0.0.1:8000. Ctrl+C stops it.
 
-It uses SQLite, so there is no database server to install or start. The script
-is safe to re-run: it only does the steps that are still needed, and it will not
-overwrite books you have added.
+It runs on SQLite so you don't need to install or start a database server.
+You can run the script again any time; it only does the steps that still need
+doing and won't overwrite books you've added.
 
 ```bash
-./run.sh --port 8080   # serve on a different port
-./run.sh --fresh       # rebuild the database from scratch
-./run.sh --setup       # set up without starting the server
+./run.sh --port 8080   # different port
+./run.sh --fresh       # rebuild the database
+./run.sh --setup       # set up but don't start the server
 ```
 
-### Using MySQL instead
+### With MySQL
 
-The project was originally written against MySQL. To use it, create the
-database:
+The project was originally written against MySQL. Create the database:
 
 ```sql
 CREATE DATABASE librarydb;
 ```
 
-Point `.env` at it:
+Set these in `.env`:
 
 ```
 DB_CONNECTION=mysql
@@ -56,93 +55,86 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Then `php artisan migrate` and `php artisan serve`.
+Then run `php artisan migrate` and `php artisan serve`.
+
+## Tests
+
+```bash
+php artisan test
+```
 
 ## Pages
 
-**Books.** The full catalogue in one table — title, author, rating and
-publisher, with view, edit and delete on every row.
+The catalogue lists every book with view, edit and delete buttons on each row.
 
 ![Books](docs/images/books.jpg)
 
-**Add.** A form for the four fields. Submits to `POST /books` and returns to
-the catalogue with a confirmation.
+Adding a book is a form with the four fields. It posts to `/books` and sends
+you back to the catalogue.
 
 ![Add a book](docs/images/add-book.jpg)
 
-**View.** A single book on its own page.
+Each book also has its own page.
 
 ![View a book](docs/images/view-book.jpg)
 
-**Edit.** The same four fields, pre-filled from the record, submitted as a
-`PUT` to `/books/{id}`.
+Editing loads the same fields with the current values filled in.
 
 ![Edit a book](docs/images/edit-book.jpg)
 
-**About.** A static page describing the library.
+There's a static about page as well.
 
 ![About](docs/images/about.jpg)
 
 ## Routes
 
-All book routes come from a single `Route::resource` in `routes/web.php`.
+The book routes all come from one `Route::resource` call in `routes/web.php`.
 
-| Method    | URI                | Action                |
-| --------- | ------------------ | --------------------- |
-| GET       | `/`                | Dashboard             |
-| GET       | `/books`           | List all books        |
-| GET       | `/books/create`    | Form to add a book    |
-| POST      | `/books`           | Store a new book      |
-| GET       | `/books/{id}`      | View one book         |
-| GET       | `/books/{id}/edit` | Form to edit a book   |
-| PUT/PATCH | `/books/{id}`      | Update a book         |
-| DELETE    | `/books/{id}`      | Delete a book         |
-| GET       | `/about`           | About page            |
-| GET       | `/help`            | Help page             |
+| Method    | URI                | Action              |
+| --------- | ------------------ | ------------------- |
+| GET       | `/`                | Dashboard           |
+| GET       | `/books`           | List all books      |
+| GET       | `/books/create`    | Form to add a book  |
+| POST      | `/books`           | Store a new book    |
+| GET       | `/books/{id}`      | View one book       |
+| GET       | `/books/{id}/edit` | Form to edit a book |
+| PUT/PATCH | `/books/{id}`      | Update a book       |
+| DELETE    | `/books/{id}`      | Delete a book       |
+| GET       | `/about`           | About page          |
+| GET       | `/help`            | Help page           |
 
-## Schema
+## Database
 
-One table, `books`, created by
+There's one table, `books`, with `title`, `author`, `rating` and `publish`
+columns (all strings) plus the usual `id` and timestamps. `publish` holds the
+publisher name. See
 `database/migrations/2023_05_25_080940_create_books_table.php`.
 
-| Column       | Type      | Notes            |
-| ------------ | --------- | ---------------- |
-| `id`         | bigint    | primary key      |
-| `title`      | string    |                  |
-| `author`     | string    |                  |
-| `rating`     | string    |                  |
-| `publish`    | string    | publisher name   |
-| `created_at` | timestamp |                  |
-| `updated_at` | timestamp |                  |
+## Where things are
 
-## Layout
+```
+app/Http/Controllers/BookController.php   the CRUD actions
+app/Models/Book.php                       the model
+routes/web.php                            routes
+resources/views/books/                    catalogue, add, edit and view pages
+resources/views/about.blade.php           about page
+resources/views/help.blade.php            help page
+database/migrations/                      schema
+database/seeders/BookSeeder.php           sample books
+tests/Feature/BookTest.php                tests for the book pages
+public/                                   front controller and images
+run.sh                                    setup and server script
+```
 
-| Path                                     | What it is                          |
-| ---------------------------------------- | ----------------------------------- |
-| `app/Http/Controllers/BookController.php` | All seven CRUD actions plus `home()` |
-| `app/Models/Book.php`                    | Eloquent model for `books`          |
-| `routes/web.php`                         | Route definitions                   |
-| `resources/views/books/index.blade.php`  | Catalogue table                     |
-| `resources/views/books/create.blade.php` | Add form                            |
-| `resources/views/books/edit.blade.php`   | Edit form                           |
-| `resources/views/books/show.blade.php`   | Single book page                    |
-| `resources/views/books/home.blade.php`   | Dashboard                           |
-| `resources/views/about.blade.php`        | About page                          |
-| `resources/views/help.blade.php`         | Help page                           |
-| `database/migrations/`                   | Schema migrations                   |
-| `database/seeders/BookSeeder.php`        | Sample books for a fresh install    |
-| `public/`                                | Front controller and images         |
-| `config/`                                | Laravel configuration               |
-| `run.sh`                                 | One-command setup and server        |
-
-Each view is a standalone page carrying its own markup and styles. Styling is
-Bootstrap over CDN, written inline. There is no build step for the front end —
-the Vite setup is Laravel's default and unused.
+Every page is standalone and carries its own markup and styles. Styling is
+Bootstrap loaded from a CDN and written inline. There's no front end build
+step; the Vite config is Laravel's default and isn't used.
 
 ## Notes
 
-`vendor/` and `.env` are not tracked. Run `composer install` and copy
-`.env.example` after cloning.
+`vendor/` and `.env` aren't tracked, so run `composer install` and copy
+`.env.example` after cloning. `run.sh` does both for you.
 
-`librarry.zip` and `Library Management System.pptx` are the original
-submission archive and its presentation, kept for reference.
+`librarry.zip` and `Library Management System.pptx` are the original submission
+archive and the presentation that went with it. I've kept them here for
+reference.
