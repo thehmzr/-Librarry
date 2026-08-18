@@ -10,7 +10,7 @@ I built this for a university web programming course.
 
 ## Running it
 
-You need PHP 8.0.2 or newer and Composer. On macOS:
+You need PHP 8.0.2 or newer and Composer. On mac:
 
 ```bash
 brew install php@8.2 composer
@@ -23,11 +23,12 @@ git clone https://github.com/thehmzr/-Librarry.git && cd -Librarry
 ./run.sh
 ```
 
-That installs the dependencies, sets up the database, adds a few sample books
+Installs the dependencies, sets up the database, adds a few sample books
 and starts the server on http://127.0.0.1:8000. Ctrl+C stops it.
 
-It runs on SQLite so you don't need to install or start a database server.
-You can run the script again any time; it only does the steps that still need
+Runs on SQLite so you don't need to install or start a database server.
+Can run the script again any time; 
+Does the steps that still need
 doing and won't overwrite books you've added.
 
 ```bash
@@ -38,7 +39,7 @@ doing and won't overwrite books you've added.
 
 ### With MySQL
 
-The project was originally written against MySQL. Create the database:
+Originally written against MySQL. Create the database:
 
 ```sql
 CREATE DATABASE librarydb;
@@ -88,7 +89,7 @@ There's a static about page as well.
 
 ## Routes
 
-The book routes all come from one `Route::resource` call in `routes/web.php`.
+Routes all come from one `Route::resource` call in `routes/web.php`.
 
 | Method    | URI                | Action              |
 | --------- | ------------------ | ------------------- |
@@ -103,14 +104,14 @@ The book routes all come from one `Route::resource` call in `routes/web.php`.
 | GET       | `/about`           | About page          |
 | GET       | `/help`            | Help page           |
 
-## Database
+#Database
 
-There's one table, `books`, with `title`, `author`, `rating` and `publish`
+One table, `books`, with `title`, `author`, `rating` and `publish`
 columns (all strings) plus the usual `id` and timestamps. `publish` holds the
-publisher name. See
+publisher name.
 `database/migrations/2023_05_25_080940_create_books_table.php`.
 
-## Where things are
+#
 
 ```
 app/Http/Controllers/BookController.php   the CRUD actions
@@ -126,15 +127,6 @@ public/                                   front controller and images
 run.sh                                    setup and server script
 ```
 
-Every page is standalone and carries its own markup and styles. Styling is
-Bootstrap loaded from a CDN and written inline. There's no front end build
-step; the Vite config is Laravel's default and isn't used.
+#Notes
 
-## Notes
-
-`vendor/` and `.env` aren't tracked, so run `composer install` and copy
-`.env.example` after cloning. `run.sh` does both for you.
-
-`librarry.zip` and `Library Management System.pptx` are the original submission
-archive and the presentation that went with it. I've kept them here for
-reference.
+`librarry.zip` and `Library Management System.pptx` 
